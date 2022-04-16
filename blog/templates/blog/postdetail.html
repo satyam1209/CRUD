@@ -1,0 +1,25 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+{% block title %}MyBlog|About{% endblock title %}
+
+{% block content %}
+<div class="col-sm-12">
+    <div class="container">
+        <h1 class="display-4 blogtitle">{{post.title|upper}}</h1>
+        <p class="lead">{{post.description|capfirst}}</p>
+        {% if request.user.is_authenticated %}
+        
+        <a href="{% url 'updatepost' post.id %}" class='btn btn-outline-warning mt-3'>Edit</a>
+        {% if perms.blog.delete_post %}
+        <form action="{% url 'deletepost' post.id %}" method="POST" class="d-line">
+        {% csrf_token %}
+        <input type="submit" class="btn btn-outline-danger mt-2" value="Delete">
+    
+    </form>
+    {% endif %}
+    
+        
+        {% endif %}
+     </div>
+    </div>
+{% endblock content %}

@@ -1,0 +1,27 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+{% block title %}MyBlog|Home{% endblock title %}
+{% block msg %}
+{% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>{{message.tags}}</strong> {{message}}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+        {% endfor %}
+        {% endif %}
+{% endblock msg %}
+
+{% block content %}
+<div class="col-sm-10">
+    <h3 class="text-white my-3">Home Page </h3>
+    {% for post in posts %}
+    <div class="jumbotron jumbotron-fluid my-5">
+     <div class="container">
+        <h1 class="display-4 blogtitle">{{post.title|upper}}</h1>
+        <p class="lead">{{post.description|slice:"0:400"|capfirst}}....<a href="{% url 'postdetail' post.id%}">More</a></p>
+     </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock content %}

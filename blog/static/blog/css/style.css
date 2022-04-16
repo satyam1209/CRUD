@@ -1,0 +1,33 @@
+body {
+	background-color: rgb(75, 74, 74);
+	color: antiquewhite;
+}
+.jumbotron{
+    border: 2px solid;
+    border-radius: 5px;
+    background-color: rgb(83, 81, 81);
+    }
+.blogtitle{
+	font-weight: bold;
+	margin-top: 50px;
+}
+
+.form{
+	color: rgb(177, 168, 168);
+}
+.form-control{
+	background-color: rgb(177, 168, 168);
+	border: 1px solid white;
+}
+.table{
+	color: black;
+}
+
+textarea {
+	width: 100%;
+	background-color:rgb(177, 168, 168);
+	border: 2px solid white;
+}
+textarea:focus {
+	background-color: white;
+}

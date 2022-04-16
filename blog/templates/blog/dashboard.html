@@ -1,0 +1,63 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+{% block title %}MyBlog|Dashboard{% endblock title %}
+{%block msg %}
+{% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong><b>{{message.tags}}</b></strong> <b>{{message}}</b>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+        {% endfor %}
+        {% endif %}{% endblock msg %}
+
+{% block side %}
+<div class="col-sm-2 text-white my-5 text-centre">
+    <h3 class="my-5">Profile</h3>
+    <h4>{{fname|capfirst}}</h4>
+    {% for group in groups %}
+    <P class="mx-4">{{group.name|capfirst}}</P>
+    {% endfor %}
+</div>
+{% endblock side %}
+
+{% block content %}
+<div class="col-sm-10">
+    <h3 class="text-white my-5">Dashboard Page </h3>
+    <a href="{% url 'addpost' %}" class="btn btn-success">Add Post</a>
+    <h4 class="text-center alert alert-info mt-3">Show Post Information</h4>
+    {% if posts %}
+    <table class="table table-hover bg-white">
+        <thead>
+            <tr class="text-center">
+                <th scope="col" style="width: 2%;">ID</th>
+                <th scope="col" style="width: 28%;">Title</th>
+                <th scope="col" style="width: 55%;">Description</th>
+                <th scope="col" style="width: 15%;">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for post in posts %}
+            <tr>
+                <th scope="row">{{post.id}}</th>
+                <td><b>{{post.title|upper}}</b></td>
+                <td>{{post.description|capfirst|slice:"0:350"}}....<a href="{% url 'postdetail' post.id%}">More</a></td>
+                <td class="text-center">
+                    <a href="{% url 'updatepost' post.id %}" class='btn btn-outline-warning mt-3'>Edit</a>
+                    {% if perms.blog.delete_post %}
+                    <form action="{% url 'deletepost' post.id %}" method="POST" class="d-line">
+                        {% csrf_token %}
+                        <input type="submit" class="btn btn-outline-danger mt-2" value="Delete">
+                    </form>
+                    {% endif %}
+                    
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <h4 class="text-center alert alert-warning">No Records</h4>
+    {% endif %}
+    </div>
+{% endblock content %}
